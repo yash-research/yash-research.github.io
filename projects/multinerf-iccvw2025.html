@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MultiNeRF — Yash Kulthe</title>
+  <meta name="description" content="MultiNeRF: Multiple Watermark Embedding for Neural Radiance Fields. ICCV Workshop APAI 2025." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <!-- KaTeX for math equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    })"></script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <div class="noise" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Site navigation">
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="../publications.html" class="nav-link">Publications</a>
+  </nav>
+
+  <main class="project-page">
+
+    <!-- Back nav -->
+    <a href="../publications.html" class="back-link anim" style="--delay:0s">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+      All Publications
+    </a>
+
+    <!-- Venue -->
+    <div class="venue-badge anim" style="--delay:0.05s">ICCV Workshops 2025</div>
+    <p class="workshop-name anim" style="--delay:0.08s">
+      Workshop on Authenticity &amp; Provenance in the Age of Generative AI (APAI), ICCV 2025
+    </p>
+
+    <!-- Title -->
+    <h1 class="project-title anim" style="--delay:0.1s">
+      MultiNeRF: Multiple Watermark Embedding for Neural Radiance Fields
+    </h1>
+
+    <!-- Authors -->
+    <p class="project-authors anim" style="--delay:0.16s">
+      <span class="me">Yash Kulthe</span><sup>1</sup>,
+      Andrew Gilbert<sup>1</sup>,
+      John Collomosse<sup>1,2</sup>
+      <br>
+      <small style="color:var(--muted); font-size:0.75rem; margin-top:0.4rem; display:inline-block; line-height:1.8">
+        <sup>1</sup> CVSSP, University of Surrey, UK
+        &nbsp;&nbsp;
+        <sup>2</sup> Adobe Research
+      </small>
+    </p>
+
+    <!-- Pill links -->
+    <div class="project-links anim" style="--delay:0.22s">
+
+      <a href="https://openaccess.thecvf.com/content/ICCV2025W/APAI/papers/Kulthe_MultiNeRF_Multiple_Watermark_Embedding_for_Neural_Radiance_Fields_ICCVW_2025_paper.pdf" class="pill" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        Paper
+      </a>
+
+      <a href="https://arxiv.org/abs/2504.02517" class="pill" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        arXiv
+      </a>
+
+      <a href="https://github.com/yash-research/MultiNeRF-code" class="pill" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        Code
+      </a>
+
+      <a href="https://openaccess.thecvf.com/content/ICCV2025W/APAI/supplemental/Kulthe_MultiNeRF_Multiple_Watermark_ICCVW_2025_supplemental.pdf" class="pill" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Sup. Mat.
+      </a>
+
+    </div>
+
+    <!-- Teaser figure -->
+    <div class="figure-block anim" style="--delay:0.28s">
+      <div class="teaser">
+        <img src="../assets/publication/multinerf/introduction.png" alt="MultiNeRF overview figure" />
+      </div>
+      <p class="figure-caption">
+        MultiNeRF embeds multiple watermarks within the representation learned by a NeRF model
+        at training time. Watermarks are keyed by a unique ID specified at rendering time to
+        trigger the embedding of the watermark into the image independent of the viewing position.
+      </p>
+    </div>
+
+    <div class="ruled anim" style="--delay:0.32s"></div>
+
+    <!-- Abstract -->
+    <section class="section anim" style="--delay:0.36s">
+      <p class="section-label">Abstract</p>
+      <p>
+        We present MultiNeRF, a 3D watermarking method that embeds multiple uniquely keyed
+        watermarks within images rendered by a single Neural Radiance Field (NeRF) model,
+        whilst maintaining high visual quality. Our approach extends the TensoRF NeRF model
+        by incorporating a dedicated watermark grid alongside the existing geometry and
+        appearance grids.
+      </p>
+      <p>
+        This extension ensures higher watermark capacity without entangling watermark signals
+        with scene content. We propose a FiLM-based conditional modulation mechanism that
+        dynamically activates watermarks based on input identifiers, allowing multiple
+        independent watermarks to be embedded and extracted without requiring model retraining.
+        MultiNeRF is validated on the NeRF-Synthetic and LLFF datasets, with statistically
+        significant improvements in robust capacity without compromising rendering quality.
+        By generalizing single-watermark NeRF methods into a flexible multi-watermarking
+        framework, MultiNeRF provides a scalable solution for 3D content attribution.
+      </p>
+    </section>
+
+    <div class="ruled anim" style="--delay:0.4s"></div>
+
+    <!-- Key Contributions -->
+    <section class="section anim" style="--delay:0.44s">
+      <p class="section-label">Key Contributions</p>
+
+      <!-- Contribution 1 -->
+      <div class="contrib-item">
+        <h3 class="section-heading">Dedicated Watermark Grid</h3>
+        <p>
+          We introduce a dedicated watermark grid alongside existing geometry and appearance
+          grids, preventing entanglement of watermark signals with scene content while
+          improving capacity.
+        </p>
+        <div class="figure-block">
+          <div class="figure-placeholder med">
+            <img src="../assets/publication/multinerf/architecture.png" alt="MultiNeRF architecture diagram" loading="lazy" />
+          </div>
+          <p class="figure-caption">
+            MultiNeRF extends TensoRF by introducing a watermark grid alongside the geometry
+            and appearance grids. Unique watermark IDs are encoded via a learnable embedding
+            network and modulated using FiLM-based conditioning.
+          </p>
+        </div>
+      </div>
+
+      <!-- Contribution 2 -->
+      <div class="contrib-item">
+        <h3 class="section-heading">FiLM-based Conditional Modulation</h3>
+        <p>
+          Our method uses Feature-wise Linear Modulation (FiLM) to dynamically activate
+          watermarks based on input identifiers, enabling multiple independent watermarks
+          without model retraining. The watermark embedding process uses FiLM-based modulation
+          where the embedding vector $e_n = \text{Emb}(I^{(n)})$ is transformed into
+          modulation parameters:
+        </p>
+        <div class="equation-block">
+          $$w'(x) = \gamma_n \odot w(x) + \beta_n$$
+        </div>
+        <p>The final watermarked colour is computed by integrating the modulated watermark features with the appearance grid:</p>
+        <div class="equation-block">
+          $$\tilde{c}(x) = S\!\left(G_c(x),\, w'(x),\, d\right)$$
+        </div>
+        <div class="figure-block">
+          <div class="figure-placeholder med">
+            <img src="../assets/publication/multinerf/training.png" alt="MultiNeRF training process diagram" loading="lazy" />
+          </div>
+          <p class="figure-caption">MultiNeRF training process.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="ruled anim" style="--delay:0.48s"></div>
+
+    <!-- Results -->
+    <section class="section anim" style="--delay:0.52s">
+      <p class="section-label">Results</p>
+
+      <h3 class="section-heading">Single Watermark Embedding</h3>
+      <p>Performance comparison for single watermark embedding:</p>
+      <div class="figure-block">
+        <div class="figure-placeholder lg">
+          <img src="../assets/publication/multinerf/single_bit_acc.png" alt="Single watermark embedding accuracy results" loading="lazy" />
+        </div>
+        <p class="figure-caption">
+          Single watermark bit accuracy comparison across different methods on
+          NeRF-Synthetic and LLFF datasets.
+        </p>
+      </div>
+
+      <h3 class="section-heading">Multiple Watermark Embedding</h3>
+      <p>Performance comparison for multiple watermark embedding:</p>
+      <div class="figure-block">
+        <div class="figure-placeholder lg">
+          <img src="../assets/publication/multinerf/multiple_bit_acc.png" alt="Multiple watermark embedding accuracy results" loading="lazy" />
+        </div>
+        <p class="figure-caption">
+          Multiple watermark embedding performance showing MultiNeRF's superior scalability
+          compared to baseline methods.
+        </p>
+      </div>
+
+      <h3 class="section-heading">Visual Comparison</h3>
+      <p>
+        Interactive comparison between MultiNeRF and WateRF-modified. MultiNeRF shows
+        significantly better multi-watermark embedding capabilities — note the reflections
+        and watermark artifacts in the WateRF-modified output.
+      </p>
+      <div class="figure-block">
+        <div class="image-comparison" id="imageComparison">
+          <div class="comparison-container">
+            <img src="../assets/publication/multinerf/waterf_mod.png" alt="WateRF-modified visual result" class="comparison-image base-image" loading="lazy" />
+            <img src="../assets/publication/multinerf/multinerf.png" alt="MultiNeRF visual result" class="comparison-image overlay-image" id="overlayImage" loading="lazy" />
+            <div class="comparison-slider" id="comparisonSlider">
+              <div class="slider-button"></div>
+            </div>
+            <div class="comparison-labels">
+              <span class="comparison-label left-label">MultiNeRF (Ours)</span>
+              <span class="comparison-label right-label">WateRF-modified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="ruled anim" style="--delay:0.56s"></div>
+
+    <!-- Robustness -->
+    <section class="section anim" style="--delay:0.6s">
+      <p class="section-label">Robustness to Attacks</p>
+      <p>
+        We evaluate the robustness of our method against various removal attacks including
+        diffusion-based regeneration and VAE-based attacks.
+      </p>
+      <div class="figure-block">
+        <div class="figure-placeholder lg">
+          <img src="../assets/publication/multinerf/removal_attack.png" alt="Robustness evaluation under removal attacks" loading="lazy" />
+        </div>
+        <p class="figure-caption">
+          Robustness evaluation showing MultiNeRF-noised (MN-noised) significantly outperforms
+          baseline methods under various removal attacks.
+        </p>
+      </div>
+    </section>
+
+    <div class="ruled anim" style="--delay:0.64s"></div>
+
+    <!-- BibTeX -->
+    <section class="section anim" style="--delay:0.68s">
+      <p class="section-label">BibTeX</p>
+      <div class="bibtex-wrap">
+        <button class="copy-btn" onclick="copyBib(this)">Copy</button>
+        <pre class="bibtex" id="bibtex-block">@InProceedings{Kulthe_2025_ICCV,
+  author    = {Kulthe, Yash and Gilbert, Andrew and Collomosse, John},
+  title     = {MultiNeRF: Multiple Watermark Embedding for Neural Radiance Fields},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops},
+  month     = {October},
+  year      = {2025},
+  pages     = {1534--1543}
+}</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">Fully Vibecoded with Claude Code ✦</footer>
+
+  <script>
+    function copyBib(btn) {
+      const text = document.getElementById('bibtex-block').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+
+    function initComparisonSlider() {
+      const imageComparison = document.getElementById('imageComparison');
+      if (!imageComparison) return;
+
+      const slider = document.getElementById('comparisonSlider');
+      const overlayImage = document.getElementById('overlayImage');
+      const container = imageComparison.querySelector('.comparison-container');
+
+      let isDragging = false;
+      let containerRect = null;
+
+      slider.addEventListener('mousedown', startDrag);
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+
+      slider.addEventListener('touchstart', startDrag, { passive: false });
+      document.addEventListener('touchmove', drag, { passive: false });
+      document.addEventListener('touchend', stopDrag);
+
+      slider.setAttribute('tabindex', '0');
+      slider.setAttribute('role', 'slider');
+      slider.setAttribute('aria-valuemin', '0');
+      slider.setAttribute('aria-valuemax', '100');
+      slider.setAttribute('aria-valuenow', '50');
+      slider.setAttribute('aria-label', 'Image comparison slider');
+
+      slider.addEventListener('keydown', handleKeyboard);
+
+      function startDrag(e) {
+        isDragging = true;
+        containerRect = container.getBoundingClientRect();
+        e.preventDefault();
+      }
+
+      function stopDrag() {
+        isDragging = false;
+        containerRect = null;
+      }
+
+      function drag(e) {
+        if (!isDragging) return;
+
+        if (!containerRect) {
+          containerRect = container.getBoundingClientRect();
+        }
+
+        let clientX;
+        if (e.type === 'touchmove') {
+          clientX = e.touches[0].clientX;
+          e.preventDefault();
+        } else {
+          clientX = e.clientX;
+        }
+
+        const x = clientX - containerRect.left;
+        const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
+
+        updateSlider(percentage);
+      }
+
+      function handleKeyboard(e) {
+        const currentValue = parseFloat(slider.getAttribute('aria-valuenow'));
+        let newValue = currentValue;
+
+        switch (e.key) {
+          case 'ArrowLeft':
+            newValue = Math.max(0, currentValue - 5);
+            break;
+          case 'ArrowRight':
+            newValue = Math.min(100, currentValue + 5);
+            break;
+          case 'Home':
+            newValue = 0;
+            break;
+          case 'End':
+            newValue = 100;
+            break;
+          default:
+            return;
+        }
+
+        e.preventDefault();
+        updateSlider(newValue);
+      }
+
+      function updateSlider(percentage) {
+        slider.style.left = percentage + '%';
+        overlayImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+        slider.setAttribute('aria-valuenow', Math.round(percentage));
+      }
+
+      container.addEventListener('click', function(e) {
+        if (slider.contains(e.target)) return;
+
+        containerRect = container.getBoundingClientRect();
+        const x = e.clientX - containerRect.left;
+        const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
+        updateSlider(percentage);
+      });
+
+      updateSlider(50);
+    }
+
+    initComparisonSlider();
+  </script>
+
+</body>
+</html>
